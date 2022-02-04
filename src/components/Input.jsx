@@ -3,29 +3,16 @@ import PropTypes from "prop-types";
 
 const Input = ({ value, type, placeholder, required, className, ...props }) => {
   return (
-    <div className="card card-body my-3">
-      <form>
-        <div className="input-group">
-          <div className="input-group-prepend">
-            <div className="input-group-text bg-primary text-white h-100">
-              <i className="fas fa-book"></i>
-            </div>
-          </div>
-          <input
-            value={value}
-            type={type ? type : "text"}
-            placeholder={placeholder ? placeholder : ""}
-            className={className ? className : "form-control"}
-            required={required ? required : false}
-            onChange={props.onChange ? (event) => props.onChange(event) : null}
-            onKeyDown={
-              props.onKeyDown ? (event) => props.onKeyDown(event) : null
-            }
-            {...props}
-          />
-        </div>
-      </form>
-    </div>
+    <input
+      value={value}
+      type={type ? type : "text"}
+      placeholder={placeholder ? placeholder : ""}
+      className={className ? className : "form-control"}
+      required={required ? required : false}
+      onChange={props.onChange ? (event) => props.onChange(event) : null}
+      onKeyDown={props.onKeyDown ? (event) => props.onKeyDown(event) : null}
+      {...props}
+    />
   );
 };
 

@@ -2,15 +2,16 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Card, Form } from "react-bootstrap";
 
-const ListItem = ({ id, isDone, task, ...props }) => {
+const ListItem = ({
+  id,
+  isDone,
+  deleteTodo,
+  editTodo,
+  editCheck,
+  task,
+  ...props
+}) => {
   const [check, setCheck] = useState(isDone);
-  const deleteTodo = () => props.deleteTodo(id);
-
-  const editTodo = () => props.editTodo(id);
-  const editCheck = (e) => {
-    setCheck(e.target.checked);
-    props.editCheck(id, e.target.checked);
-  };
 
   return (
     <Card style={{ margin: "10px 0" }} className="col">
@@ -75,13 +76,12 @@ ListItem.propTypes = {
    * Supprimer un todo
    */
   deleteTodo: PropTypes.func,
-
-  onClick: PropTypes.func,
 };
 
 ListItem.defaultProps = {
   task: "todo text",
   isDone: false,
+  deleteTodo: undefined,
 };
 
 export default ListItem;

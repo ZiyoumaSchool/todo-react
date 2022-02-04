@@ -52,8 +52,9 @@ class TodoList extends Component {
           id={item.id}
           isDone={item.isDone}
           task={item.task}
-          deleteTodo={this.deleteTodo}
-          editTodo={this.editTodo}
+          deleteTodo={() => this.deleteTodo(item.id)}
+          editTodo={() => this.editTodo(item.id)}
+          editCheck={() => this.editCheck(item.id)}
         />
       </div>
     ));
@@ -63,6 +64,7 @@ class TodoList extends Component {
     this.state.todos.forEach((elt, index) => {
       if (elt.id != id) save.push(elt);
     });
+
     this.setState({ todos: [...save] });
     this.setLocalStorage(TODOLIST, [...save]);
   };
@@ -82,7 +84,6 @@ class TodoList extends Component {
     this.setState({ todos: datas }, () =>
       this.setLocalStorage(TODOLIST, datas)
     );
-    console.log(datas);
   };
 
   setLocalStorage = (key, element) =>
@@ -99,10 +100,6 @@ class TodoList extends Component {
             {this.listTodo()}
           </div>
         </div>
-
-        {/* <div className="row">
-          <Form addTodo={this.addTodo} inputEdit={this.state.inputValue} />
-        </div> */}
       </div>
     );
   }

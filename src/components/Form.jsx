@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Input from "./Input";
 import Button from "./Button";
+import PropTypes from "prop-types";
 
 const Form = ({ inputEdit, ...props }) => {
   const [inputValue, setInputValue] = useState("");
@@ -24,32 +25,37 @@ const Form = ({ inputEdit, ...props }) => {
   };
 
   return (
-    <form>
-      <div className="row">
-        <div className="col">
-          <Input
-            placeholder="Ajouter un todo"
-            onChange={onChange}
-            onKeyDown={onKeyDown}
-            value={inputValue}
-          />
+    <div className="card card-body my-3">
+      <div className="input-group">
+        <div className="input-group-prepend">
+          <div className="input-group-text bg-primary text-white h-100">
+            <i className="fas fa-book"></i>
+          </div>
         </div>
-        {/* <div className="col-2">
-          <Button onClick={add} size="medium" primary={true} label="Ajouter" />
-        </div> */}
+        <Input
+          placeholder="Ajouter un todo"
+          onChange={onChange}
+          onKeyDown={onKeyDown}
+          value={inputValue}
+        />
+        <Button onClick={add} size="medium" primary={true} label="Ajouter" />
       </div>
-    </form>
+    </div>
   );
 };
-// Header.propTypes = {
-//     user: PropTypes.shape({}),
-//     onLogin: PropTypes.func.isRequired,
-//     onLogout: PropTypes.func.isRequired,
-//     onCreateAccount: PropTypes.func.isRequired,
-//   };
-
-//   Header.defaultProps = {
-//     user: null,
-//   };
+Form.propTypes = {
+  /**
+   *  L'action qui suit l'appui sur la touche Entrée
+   */
+  onKeyDown: PropTypes.func,
+  /**
+   * Utile réelement lors de la modification
+   */
+  value: PropTypes.string,
+  /**
+   * L'action qui suit l'appui sur le boutton
+   */
+  onClick: PropTypes.func,
+};
 
 export default Form;
