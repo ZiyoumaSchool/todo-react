@@ -33,11 +33,19 @@ const ListItem = ({ deleteTodo, editTodo, editCheck, item, ...props }) => {
           </i>
         </div>
         <div className="col-1">
-          <i
-            className="far fa-edit text-primary"
-            onClick={editTodo}
-            style={{ cursor: "pointer" }}
-          ></i>
+          {item.isDone === true ? (
+            <i
+              className="far fa-edit text-primary"
+              disabled
+              style={{ cursor: "no-drop" }}
+            ></i>
+          ) : (
+            <i
+              className="far fa-edit text-primary"
+              onClick={editTodo}
+              style={{ cursor: "pointer" }}
+            ></i>
+          )}
         </div>
         <div className="col-1">
           <i
