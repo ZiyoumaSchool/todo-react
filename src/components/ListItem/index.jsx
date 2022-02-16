@@ -1,18 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { Card, Form } from "react-bootstrap";
 
-const ListItem = ({
-  id,
-  isDone,
-  deleteTodo,
-  editTodo,
-  editCheck,
-  task,
-  ...props
-}) => {
-  const [check, setCheck] = useState(isDone);
-
+const ListItem = ({ deleteTodo, editTodo, editCheck, item, ...props }) => {
   return (
     <Card style={{ margin: "10px 0" }} className="col">
       <Card.Body className="row">
@@ -20,28 +10,42 @@ const ListItem = ({
           {" "}
           <Form>
             <Form.Check
-              defaultChecked={isDone}
+              defaultChecked={item.isDone}
+              value={item.isDone}
               type="switch"
               id="disabled-custom-switch"
               onChange={(e) => editCheck(e)}
             />
           </Form>
         </div>
-        <div className="col-9 ">
+        <div className="col-4">
           <Card.Text>
-            {check === true ? (
-              <s>{task}</s>
+            {item.isDone === true ? (
+              <s style={{ color: "red" }}>{item.task}</s>
             ) : (
-              <React.Fragment>{task}</React.Fragment>
+              <React.Fragment>{item.task} </React.Fragment>
             )}
           </Card.Text>
         </div>
+        <div className="col-4">
+          <i className="dating">
+            {item.hour}-{item.date}
+          </i>
+        </div>
         <div className="col-1">
-          <i
-            className="far fa-edit text-primary"
-            onClick={editTodo}
-            style={{ cursor: "pointer" }}
-          ></i>
+          {item.isDone === true ? (
+            <i
+              className="far fa-edit text-primary"
+              disabled
+              style={{ cursor: "no-drop" }}
+            ></i>
+          ) : (
+            <i
+              className="far fa-edit text-primary"
+              onClick={editTodo}
+              style={{ cursor: "pointer" }}
+            ></i>
+          )}
         </div>
         <div className="col-1">
           <i
@@ -82,6 +86,8 @@ ListItem.defaultProps = {
   task: "todo text",
   isDone: false,
   deleteTodo: undefined,
+  hour: null,
+  date: null,
 };
 
 export default ListItem;

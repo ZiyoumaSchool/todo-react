@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Form from "../../components/Form";
 import ListItem from "../../components/ListItem";
-// import uuid from "uuid";
 
 const TODOLIST = "TodoList";
 
@@ -26,13 +25,21 @@ class TodoList extends Component {
           {
             id: this.state.todoEdit.id,
             isDone: this.state.todoEdit.isDone,
+            hour: `${new Date().getHours()}:${new Date().getMinutes()}`,
+            date: new Date().toLocaleDateString(),
             task: val,
           },
         ];
       else
         change = [
           ...this.state.todos,
-          { id: this.state.todos.length + 1, isDone: false, task: val },
+          {
+            id: this.state.todos.length + 1,
+            isDone: false,
+            task: val,
+            hour: `${new Date().getHours()}:${new Date().getMinutes()}`,
+            date: new Date().toLocaleDateString(),
+          },
         ];
 
       this.setState(
@@ -49,9 +56,7 @@ class TodoList extends Component {
     this.state.todos.map((item) => (
       <div className="row mx-2" key={item.id}>
         <ListItem
-          id={item.id}
-          isDone={item.isDone}
-          task={item.task}
+          item={item}
           deleteTodo={() => this.deleteTodo(item.id)}
           editTodo={() => this.editTodo(item.id)}
           editCheck={() => this.editCheck(item.id)}
@@ -76,10 +81,10 @@ class TodoList extends Component {
     this.deleteTodo(todo.id);
   };
 
-  editCheck = (id, check) => {
+  editCheck = (id) => {
     const datas = this.state.todos.slice();
     datas.forEach((elt) => {
-      if (elt.id === id) elt.isDone = check;
+      if (elt.id === id) elt.isDone = !elt.isDone;
     });
     this.setState({ todos: datas }, () =>
       this.setLocalStorage(TODOLIST, datas)
