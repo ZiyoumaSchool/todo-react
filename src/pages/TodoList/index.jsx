@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Form from "../../components/Form";
 import ListItem from "../../components/ListItem";
+import ModalTodo from "../../components/ModalTodo";
 
 const TODOLIST = "TodoList";
 
@@ -8,6 +9,8 @@ class TodoList extends Component {
   state = {
     inputValue: "",
     todos: [],
+    showModal: false,
+    modalContent: "",
     todoEdit: null,
   };
 
@@ -17,39 +20,24 @@ class TodoList extends Component {
   }
 
   addTodo = (val) => {
-    if (val !== "") {
-      let change;
-      if (this.state.todoEdit != null)
-        change = [
-          ...this.state.todos,
-          {
-            id: this.state.todoEdit.id,
-            isDone: this.state.todoEdit.isDone,
-            hour: `${new Date().getHours()}:${new Date().getMinutes()}`,
-            date: new Date().toLocaleDateString(),
-            task: val,
-          },
-        ];
-      else
-        change = [
-          ...this.state.todos,
-          {
-            id: this.state.todos.length + 1,
-            isDone: false,
-            task: val,
-            hour: `${new Date().getHours()}:${new Date().getMinutes()}`,
-            date: new Date().toLocaleDateString(),
-          },
-        ];
+    const change = [
+      ...this.state.todos,
+      {
+        id: this.state.todos.length + 1,
+        isDone: false,
+        task: val,
+        hour: `${new Date().getHours()}:${new Date().getMinutes()}`,
+        date: new Date().toLocaleDateString(),
+      },
+    ];
 
-      this.setState(
-        {
-          inputValue: "",
-          todos: change,
-        },
-        this.setLocalStorage(TODOLIST, change)
-      );
-    }
+    this.setState(
+      {
+        inputValue: "",
+        todos: change,
+      },
+      this.setLocalStorage(TODOLIST, change)
+    );
   };
 
   listTodo = () =>
@@ -74,15 +62,17 @@ class TodoList extends Component {
     this.setLocalStorage(TODOLIST, [...save]);
   };
 
-  editTodo = (id) => {
-    const todo = this.state.todos.find((elt) => elt.id == id);
-    this.setState({ inputValue: todo.task, todoEdit: todo });
-
-    this.deleteTodo(todo.id);
+  saveChange = (item) => {
+    const save = this.state.todos.slice();
+    save.forEach((elt) => {
+      if (elt.id == item.id) elt = item;
+    });
+    this.setState({ todos: item });
   };
 
   editCheck = (id) => {
     const datas = this.state.todos.slice();
+
     datas.forEach((elt) => {
       if (elt.id === id) elt.isDone = !elt.isDone;
     });
@@ -93,6 +83,7 @@ class TodoList extends Component {
 
   setLocalStorage = (key, element) =>
     localStorage.setItem(key, JSON.stringify(element));
+
   getLocalStorage = (key) => JSON.parse(localStorage.getItem(key));
 
   render() {

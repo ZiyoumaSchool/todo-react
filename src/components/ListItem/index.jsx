@@ -1,8 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Card, Form } from "react-bootstrap";
+import ModalTodo from "../ModalTodo";
 
-const ListItem = ({ deleteTodo, editTodo, editCheck, item, ...props }) => {
+const ListItem = ({ deleteTodo, editCheck, item, saveChange, ...props }) => {
+  const [show, setShow] = useState(false);
+  const [modalContent, setModalContent] = useState("");
+  const [inputValue, setInputValue] = useState(item.task);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  const openModal = (content) => {
+    handleShow();
+    setModalContent(content);
+  };
+
+  const onChange = (event) => setInputValue(event.target.value);
+
+  const editTodo = () => {
+    item.task = inputValue;
+    item.hour = `${new Date().getHours()}:${new Date().getMinutes()}`;
+    item.date = new Date().toLocaleDateString();
+
+    handleClose();
+    saveChange(item);
+  };
+
   return (
     <Card style={{ margin: "10px 0" }} className="col">
       <Card.Body className="row">
@@ -42,7 +66,12 @@ const ListItem = ({ deleteTodo, editTodo, editCheck, item, ...props }) => {
           ) : (
             <i
               className="far fa-edit text-primary"
-              onClick={editTodo}
+              onClick={() =>
+                handleShow({
+                  title: "Modification de la todo",
+                  content: "boff attendons",
+                })
+              }
               style={{ cursor: "pointer" }}
             ></i>
           )}
@@ -55,6 +84,16 @@ const ListItem = ({ deleteTodo, editTodo, editCheck, item, ...props }) => {
           ></i>
         </div>
       </Card.Body>
+
+      <ModalTodo
+        show={show}
+        closeModal={handleClose}
+        modalContent={modalContent}
+        typeofModal="input"
+        inputValue={inputValue}
+        onChange={onChange}
+        editTodo={() => editTodo(item.id)}
+      />
     </Card>
   );
 };
