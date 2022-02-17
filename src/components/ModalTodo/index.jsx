@@ -35,7 +35,7 @@ const ModalTodo = ({
             onClick={editTodo}
             size="medium"
             primary={true}
-            label="Ajouter"
+            label="Modifier"
           />
         </Modal.Footer>
       </Modal>

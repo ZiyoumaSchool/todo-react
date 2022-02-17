@@ -11,11 +11,6 @@ const ListItem = ({ deleteTodo, editCheck, item, saveChange, ...props }) => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const openModal = (content) => {
-    handleShow();
-    setModalContent(content);
-  };
-
   const onChange = (event) => setInputValue(event.target.value);
 
   const editTodo = () => {

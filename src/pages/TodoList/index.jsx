@@ -55,7 +55,7 @@ class TodoList extends Component {
   deleteTodo = (id) => {
     const save = [];
     this.state.todos.forEach((elt, index) => {
-      if (elt.id != id) save.push(elt);
+      if (elt.id !== id) save.push(elt);
     });
 
     this.setState({ todos: [...save] });
@@ -65,7 +65,7 @@ class TodoList extends Component {
   saveChange = (item) => {
     const save = this.state.todos.slice();
     save.forEach((elt) => {
-      if (elt.id == item.id) elt = item;
+      if (elt.id === item.id) elt = item;
     });
     this.setState({ todos: item });
   };
