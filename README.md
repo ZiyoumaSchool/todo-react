@@ -1,4 +1,4 @@
-# Auth Doc
+# TODO LIST
 
     Il s'agit d'un todo list regroupant toutes les notions apprises pendant ma formation implementé avec des outils de collaboration
 
@@ -23,8 +23,6 @@ Pour mettre sur pied cette application nous utilisons:
 ## Installation
 
 Les commandes pour lancer le projet :
-
-A little intro about the installation.
 
 ```
 $ git clone https://github.com/ZiyoumaSchool/todo-react.git
