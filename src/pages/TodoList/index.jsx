@@ -44,7 +44,7 @@ class TodoList extends Component {
         <ListItem
           item={item}
           deleteTodo={() => this.deleteTodo(item.id)}
-          editTodo={() => this.editTodo(item.id)}
+          saveChange={this.saveChange}
           editCheck={() => this.editCheck(item.id)}
         />
       </div>
@@ -56,8 +56,8 @@ class TodoList extends Component {
       if (elt.id !== id) save.push(elt);
     });
 
-    this.setState({ todos: [...save] });
-    this.setLocalStorage(TODOLIST, [...save]);
+    this.setState({ todos: save });
+    this.setLocalStorage(TODOLIST, save);
   };
 
   saveChange = (item) => {
@@ -65,7 +65,8 @@ class TodoList extends Component {
     save.forEach((elt) => {
       if (elt.id === item.id) elt = item;
     });
-    this.setState({ todos: item });
+    this.setState({ todos: save });
+    this.setLocalStorage(TODOLIST, save);
   };
 
   editCheck = (id) => {

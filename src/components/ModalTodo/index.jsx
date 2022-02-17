@@ -1,11 +1,11 @@
 import { Modal } from "react-bootstrap";
 import React, { Fragment } from "react";
+import PropTypes from "prop-types";
 import Button from "../Button";
 import Input from "../Input";
 
 const ModalTodo = ({
   show,
-  editTodo,
   closeModal,
   modalContent,
   typeofModal,
@@ -30,17 +30,40 @@ const ModalTodo = ({
           )}
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={closeModal} size="medium" label="Fermer" />
+          <Button onClick={closeModal} size="medium" label="Annuler" />
           <Button
-            onClick={editTodo}
+            onClick={props.actionBtn}
             size="medium"
             primary={true}
-            label="Modifier"
+            label={modalContent.btnLabel}
           />
         </Modal.Footer>
       </Modal>
     </>
   );
+};
+
+ModalTodo.propTypes = {
+  /**
+   *  La variable qui nous permet de savoir si le modal est actif ou pas
+   */
+  show: PropTypes.bool,
+  /**
+   * La couleur que le boutton doit prendre
+   */
+  backgroundColor: PropTypes.string,
+  /**
+   * La description des champs du label
+   */
+  modalContent: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    content: PropTypes.string,
+    btnLabel: PropTypes.string.isRequired,
+  }),
+  /**
+   * L'action qui suivra le boutton a cote de fermer
+   */
+  actionBtn: PropTypes.func,
 };
 
 export default ModalTodo;

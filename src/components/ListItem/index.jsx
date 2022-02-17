@@ -1,15 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Card, Form } from "react-bootstrap";
 import ModalTodo from "../ModalTodo";
 
-const ListItem = ({ deleteTodo, editCheck, item, saveChange, ...props }) => {
-  const [show, setShow] = useState(false);
+const ListItem = ({ deleteTodo, editCheck, item, ...props }) => {
+  const [showE, setShowE] = useState(false);
+  const [showD, setShowD] = useState(false);
   const [modalContent, setModalContent] = useState("");
   const [inputValue, setInputValue] = useState(item.task);
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleClose = () => {
+    if (showE) setShowE(false);
+    if (showD) setShowD(false);
+  };
+  const handleShowE = (content) => {
+    setModalContent(content);
+    setShowE(true);
+  };
+  const handleShowD = (content) => {
+    setModalContent(content);
+    setShowD(true);
+  };
 
   const onChange = (event) => setInputValue(event.target.value);
 
@@ -19,7 +30,7 @@ const ListItem = ({ deleteTodo, editCheck, item, saveChange, ...props }) => {
     item.date = new Date().toLocaleDateString();
 
     handleClose();
-    saveChange(item);
+    props.saveChange(item);
     setModalContent("");
   };
 
@@ -63,9 +74,9 @@ const ListItem = ({ deleteTodo, editCheck, item, saveChange, ...props }) => {
             <i
               className="far fa-edit text-primary"
               onClick={() =>
-                handleShow({
-                  title: "Modification de la todo",
-                  content: "boff attendons",
+                handleShowE({
+                  title: "Modification",
+                  btnLabel: "Modifier",
                 })
               }
               style={{ cursor: "pointer" }}
@@ -75,20 +86,34 @@ const ListItem = ({ deleteTodo, editCheck, item, saveChange, ...props }) => {
         <div className="col-1">
           <i
             className="far fa-trash-alt text-danger"
-            onClick={deleteTodo}
+            onClick={() =>
+              handleShowD({
+                title: "Suppression de la todo",
+                content: "Voulez vous vraiment supprimer ce todo?",
+                btnLabel: "Oui",
+              })
+            }
             style={{ cursor: "pointer" }}
           ></i>
         </div>
       </Card.Body>
 
       <ModalTodo
-        show={show}
+        show={showE}
         closeModal={handleClose}
         modalContent={modalContent}
         typeofModal="input"
         inputValue={inputValue}
         onChange={onChange}
-        editTodo={() => editTodo(item.id)}
+        actionBtn={() => editTodo(item.id)}
+      />
+
+      <ModalTodo
+        show={showD}
+        closeModal={handleClose}
+        modalContent={modalContent}
+        typeofModal="simple"
+        actionBtn={deleteTodo}
       />
     </Card>
   );
