@@ -20,6 +20,7 @@ const ListItem = ({ deleteTodo, editCheck, item, saveChange, ...props }) => {
 
     handleClose();
     saveChange(item);
+    setModalContent("");
   };
 
   return (

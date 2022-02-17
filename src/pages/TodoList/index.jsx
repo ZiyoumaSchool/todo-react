@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import Form from "../../components/Form";
 import ListItem from "../../components/ListItem";
-import ModalTodo from "../../components/ModalTodo";
-
 const TODOLIST = "TodoList";
 
 class TodoList extends Component {

@@ -1,5 +1,5 @@
 import { Modal } from "react-bootstrap";
-import React, { useState, Fragment } from "react";
+import React, { Fragment } from "react";
 import Button from "../Button";
 import Input from "../Input";
 
