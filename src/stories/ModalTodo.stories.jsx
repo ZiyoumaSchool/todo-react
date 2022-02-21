@@ -1,11 +1,16 @@
 import React from "react";
 import ModalTodo from "../components/ModalTodo";
+import { Modal } from "react-bootstrap";
+import Button from "../components/Button";
 
 export default {
   title: "Components/ModalTodo",
   component: ModalTodo,
   argTypes: {
-    backgroundColor: { control: "color" },
+    modalContent: {
+      bntLabel: { control: "text" },
+      title: { control: "text" },
+    },
   },
 };
 
@@ -17,15 +22,7 @@ EditModal.args = {
     title: "Modification",
     bntLabel: "Modifier",
   },
-  actionBtn: null,
-};
-
-export const DeleteModal = Template.bind({});
-DeleteModal.args = {
-  modalContent: {
-    title: "Suppression de la todo",
-    content: "Voulez vous vraiment supprimer ce todo?",
-    bntLabel: "Oui",
-  },
+  typeofModal: "edit",
+  show: false,
   actionBtn: null,
 };
