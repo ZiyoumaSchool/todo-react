@@ -1,6 +1,10 @@
 import React, { useState, useContext } from "react";
+import "./signup.css";
+import Input from "../Input";
 import { FirebaseContext } from "../Firebase";
 import { Link } from "react-router-dom";
+import Button from "../Button";
+import { Card, Form } from "react-bootstrap";
 
 const Signup = (props) => {
   const datas = {
@@ -45,79 +49,92 @@ const Signup = (props) => {
     email === "" ||
     password === "" ||
     password !== confirmPassword ? (
-      <button disabled>S'inscrire</button>
+      <Button size="medium" label="S'inscrire" />
     ) : (
-      <button>S'inscrire</button>
+      <Button
+        onClick={handleSubmit}
+        size="medium"
+        primary={true}
+        label="S'inscrire"
+      />
     );
 
   const msgErreur = error !== "" && <span>{error.message}</span>;
   return (
-    <div className="signUpLoginBox">
-      <div className="slContainer">
-        <div className="formBoxLeftSignup"></div>
-        <div className="formBoxRight">
-          <div className="formContent">
-            {msgErreur}
-            <h2>Inscription</h2>
-            <form onSubmit={handleSubmit}>
-              <div className="inputBox">
-                <input
-                  type="text"
-                  id="pseudo"
-                  onChange={handleChange}
-                  value={pseudo}
-                  required
-                />
-                <label htmlFor="pseudo">Pseudo</label>
-              </div>
-              <div className="inputBox">
-                <input
-                  type="email"
-                  id="email"
-                  onChange={handleChange}
-                  value={email}
-                  autocomplete="off"
-                  required
-                />
-                <label htmlFor="email">Email</label>
-              </div>
-
-              <div className="inputBox">
-                <input
-                  type="password"
-                  id="password"
-                  onChange={handleChange}
-                  value={password}
-                  autocomplete="off"
-                  required
-                />
-                <label htmlFor="password">Mot de Passe</label>
-              </div>
-
-              <div className="inputBox">
-                <input
-                  type="password"
-                  id="confirmPassword"
-                  onChange={handleChange}
-                  value={confirmPassword}
-                  required
-                />
-                <label htmlFor="confirmPassword">
-                  Confirmer le mot de passe
-                </label>
-              </div>
-              {submitBtn}
-            </form>
-            <div className="linkContainer">
-              <Link className="simpleLink" to="/login">
-                Déja inscrit ? Connectez-vous
-              </Link>
-            </div>
+    <div className="container">
+      <Card style={{ margin: "10px 0" }} className="col">
+        <Card.Body>
+          {msgErreur}
+          <h2>Inscription</h2>
+        </Card.Body>
+        <form onSubmit={handleSubmit} className="card-todo">
+          <div className="mb-3">
+            <label className="form-label">Pseudo</label>
+            <Input
+              id="pseudo"
+              placeholder="Entrer votre pseudo"
+              onChange={handleChange}
+              value={pseudo}
+            />
           </div>
-        </div>
+
+          <div className="mb-3">
+            <label className="form-label">Email</label>
+            <Input
+              id="email"
+              type="email"
+              placeholder="Entrer votre email"
+              onChange={handleChange}
+              value={email}
+            />
+          </div>
+
+          <div className="mb-3">
+            <label className="form-label">Mot de passe</label>
+            <Input
+              id="password"
+              type="password"
+              placeholder="Entrer votre mot de passe"
+              onChange={handleChange}
+              value={password}
+            />
+          </div>
+
+          <div className="mb-3">
+            <label className="form-label">Confirmer le mot de passe</label>
+            <Input
+              id="confirmPassword"
+              type="password"
+              placeholder="Confirmer votre mot de passe"
+              onChange={handleChange}
+              value={confirmPassword}
+            />
+          </div>
+          {submitBtn}
+        </form>
+      </Card>
+      <div className="linkContainer">
+        <Link className="simpleLink" to="/login">
+          Déja inscrit ? Connectez-vous
+        </Link>
       </div>
     </div>
   );
 };
 
 export default Signup;
+
+{
+  /* <div className="signUpLoginBox">
+<div className="slContainer">
+  <div className="formBoxLeftSignup"></div>
+  <div className="formBoxRight">
+    <div className="formContent">
+      {msgErreur}
+      <h2>Inscription</h2>
+    
+    </div>
+  </div>
+</div>
+</div> */
+}
