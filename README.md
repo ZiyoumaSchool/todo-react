@@ -1,17 +1,18 @@
 # TODO LIST
 
-    Il s'agit d'un todo list regroupant toutes les notions apprises pendant ma formation implementé avec des outils de collaboration
+     It is a todo list gathering all the notions learned during my training implemented with collaboration tools
 
-## Sommaire
+## Contents
 
-1. [Informations Générales](#general-info)
+1. [General Information](#general-info)
 2. [Technologies](#technologies)
 3. [Installation](#installation)
 
-## Informations Générales
+## General Information
 
 <a name="general-info"></a>
-Cette application est un todo list, dans laquelle toutes les notions essentielles à la compréhension de React js sont abordé (gestion du state, les props, le cycle de vie d'un composant, etc...) avec ça s'accompagne des outils comme storybook, atomic design permettant de travailler en équipe éficacement
+
+This application is a todo list, in which all the essential notions to the understanding of React js are approached (management of the state, the props, the life cycle of a component, etc...) with that is accompanied by tools like storybook, atomic design allowing to work in team éficacement
 
 ## Technologies
 
