@@ -121,19 +121,20 @@ const ListItem = ({ deleteTodo, editCheck, item, ...props }) => {
 
 ListItem.propTypes = {
   /**
+   * Elle contient les infos par rapport au todo
    *  Id du todo
+   * Le contenu du todo
+   *  L'etat du todo si c'est fait ou pas
    */
-  id: PropTypes.number,
+  item: PropTypes.shape({
+    id: PropTypes.number,
+    task: PropTypes.string,
+    isDone: PropTypes.bool,
+    date: PropTypes.string,
+    hour: PropTypes.string,
+  }),
   /**
-   *  Le contenu du todo
-   */
-  task: PropTypes.string,
-  /**
-   * L'etat du todo si c'est fait ou pas
-   */
-  isDone: PropTypes.bool,
-  /**
-   * Modifier un todo
+   *La fonction pour l'edit
    */
   editTodo: PropTypes.func,
   /**
@@ -143,11 +144,13 @@ ListItem.propTypes = {
 };
 
 ListItem.defaultProps = {
-  task: "todo text",
-  isDone: false,
+  item: {
+    task: "todo text",
+    isDone: false,
+    hour: `${new Date().getHours()}:${new Date().getMinutes()}`,
+    date: new Date().toLocaleDateString(),
+  },
   deleteTodo: undefined,
-  hour: null,
-  date: null,
 };
 
 export default ListItem;

@@ -49,21 +49,35 @@ ModalTodo.propTypes = {
    */
   show: PropTypes.bool,
   /**
-   * La couleur que le boutton doit prendre
+   *  Le type de modal on peut avoir le modal pour la modification d'une todo, de la suppression d'un todo ou autre encore ...
    */
-  backgroundColor: PropTypes.string,
+  typeofModal: PropTypes.oneOf(["simple", "edit"]),
   /**
    * La description des champs du label
    */
   modalContent: PropTypes.shape({
-    title: PropTypes.string.isRequired,
+    title: PropTypes.string,
     content: PropTypes.string,
-    btnLabel: PropTypes.string.isRequired,
+    btnLabel: PropTypes.string,
   }),
+  /**
+   * La fonction qui permet de fermer le modal
+   */
+  closeModal: PropTypes.func,
   /**
    * L'action qui suivra le boutton a cote de fermer
    */
   actionBtn: PropTypes.func,
+};
+
+ModalTodo.defaultProps = {
+  show: false,
+  actionBtn: null,
+  modalContent: {
+    title: "Modal",
+    content: "Préciser le texte a afficher ici, s'il en a",
+    btnLabel: "Action",
+  },
 };
 
 export default ModalTodo;

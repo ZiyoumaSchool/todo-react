@@ -11,3 +11,4 @@ export default {
 const Template = (args) => <ListItem {...args} />;
 
 export const ListTodo = Template.bind({});
+ListTodo.args = {};
