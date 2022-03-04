@@ -2,6 +2,16 @@
 
 All significant changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for engagement guidelines.
 
+### [1.0.0](https://github.com/ZiyoumaSchool/todo-react/commit/a0a023082751ab935cdbcae64e71e9b75a9063d3) (2022-02-15)
+
+### Features
+
+- Connection with Google Account
+
+- Todos save on firebase
+
+- Every user connect have her session
+
 ### [0.1.0](https://github.com/ZiyoumaSchool/todo-react/commit/a0a023082751ab935cdbcae64e71e9b75a9063d3) (2022-02-15)
 
 ### Features
