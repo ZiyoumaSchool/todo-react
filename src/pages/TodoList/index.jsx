@@ -107,7 +107,8 @@ class TodoList extends Component {
 
   getLocalStorage = (key) => JSON.parse(localStorage.getItem(key));
 
-  removeIyem = () => localStorage.removeItem(TODOUSERS);
+  removeItem = (key) => localStorage.removeItem(key);
+
   responseGoogle = (response) => {
     const user = {
       id: response.profileObj.googleId,
@@ -117,22 +118,29 @@ class TodoList extends Component {
       imageUrl: response.profileObj.imageUrl,
       name: response.profileObj.name,
     };
-    this.setState({ user, isAuth: true });
-    this.setLocalStorage(TODOUSERS, user);
+
     this.context
       .findDocument(user.id)
       .then((querySnapshot) => {
-        querySnapshot.forEach((element) => {
-          var data = element.data();
-          this.setState({ todos: data.todos });
-        });
+        if (querySnapshot.exists)
+          querySnapshot.forEach((element) => {
+            var data = element.data();
+            this.setState({ user, isAuth: true, todos: data.todos });
+          });
+        else {
+          this.context.user(user.id).set({ ...user, todos: this.state.todos });
+          this.setState({ user, isAuth: true, todos: [] });
+        }
+        this.setLocalStorage(TODOUSERS, user);
       })
       .catch((err) => {
         console.log(err);
       });
   };
+
   logOut = () => {
     this.setState({ user: {}, isAuth: false, todos: [] });
+    this.removeItem(TODOUSERS);
   };
 
   render() {
