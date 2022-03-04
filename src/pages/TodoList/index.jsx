@@ -141,6 +141,8 @@ class TodoList extends Component {
   logOut = () => {
     this.setState({ user: {}, isAuth: false, todos: [] });
     this.removeItem(TODOUSERS);
+    const datas = this.getLocalStorage(TODOLIST);
+    if (datas != null) this.setState({ todos: datas });
   };
 
   render() {
@@ -158,11 +160,12 @@ class TodoList extends Component {
                       className="img-xs image imgB"
                       width={50}
                       height={50}
+                      alt="User  profile"
                     />
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
                     <Dropdown.Item>
-                      {this.state.user != "" ? (
+                      {this.state.user !== "" ? (
                         <div className="centerContent">
                           {this.state.user.givenName.toUpperCase()}
                         </div>
