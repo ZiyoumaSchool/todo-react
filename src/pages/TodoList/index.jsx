@@ -3,6 +3,7 @@ import Form from "../../components/Form";
 import ListItem from "../../components/ListItem";
 import { FirebaseContext } from "../../components/Firebase";
 import { GoogleLogin } from "react-google-login";
+import { GoogleLogout } from "react-google-login";
 import { Dropdown } from "react-bootstrap";
 import "./todoList.css";
 
@@ -110,32 +111,33 @@ class TodoList extends Component {
   removeItem = (key) => localStorage.removeItem(key);
 
   responseGoogle = (response) => {
-    const user = {
-      id: response.profileObj.googleId,
-      email: response.profileObj.email,
-      familyName: response.profileObj.familyName,
-      givenName: response.profileObj.givenName,
-      imageUrl: response.profileObj.imageUrl,
-      name: response.profileObj.name,
-    };
+    // const user = {
+    //   id: response.profileObj.googleId,
+    //   email: response.profileObj.email,
+    //   familyName: response.profileObj.familyName,
+    //   givenName: response.profileObj.givenName,
+    //   imageUrl: response.profileObj.imageUrl,
+    //   name: response.profileObj.name,
+    // };
 
-    this.context
-      .findDocument(user.id)
-      .then((querySnapshot) => {
-        if (querySnapshot.exists)
-          querySnapshot.forEach((element) => {
-            var data = element.data();
-            this.setState({ user, isAuth: true, todos: data.todos });
-          });
-        else {
-          this.context.user(user.id).set({ ...user, todos: this.state.todos });
-          this.setState({ user, isAuth: true, todos: [] });
-        }
-        this.setLocalStorage(TODOUSERS, user);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    // this.context
+    //   .findDocument(user.id)
+    //   .then((querySnapshot) => {
+    //     if (querySnapshot.exists)
+    //       querySnapshot.forEach((element) => {
+    //         var data = element.data();
+    //         this.setState({ user, isAuth: true, todos: data.todos });
+    //       });
+    //     else {
+    //       this.context.user(user.id).set({ ...user, todos: this.state.todos });
+    //       this.setState({ user, isAuth: true, todos: [] });
+    //     }
+    //     this.setLocalStorage(TODOUSERS, user);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
+    console.log(response)
   };
 
   logOut = () => {
@@ -172,9 +174,12 @@ class TodoList extends Component {
                       ) : null}
                     </Dropdown.Item>
                     <Dropdown.Divider />
-                    <Dropdown.Item onClick={this.logOut}>
-                      <i className="fa-solid fa-arrow-right-from-bracket"></i>
-                      Déconnexion
+                    <Dropdown.Item>
+                      <GoogleLogout
+                        clientId="859857546300-p9dnpvho05nsqacerea9a8npffg611o5.apps.googleusercontent.com"
+                        buttonText="Déconnexion"
+                        onLogoutSuccess={this.logOut}
+                      ></GoogleLogout>
                     </Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
