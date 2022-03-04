@@ -15,7 +15,7 @@ const config = {
 class Firebase {
   constructor() {
     app.initializeApp(config);
-    this.auth = app.auth();
+    this.authtodos = app.auth();
     this.db = app.firestore();
   }
 
@@ -26,6 +26,8 @@ class Firebase {
 
   findDocument = (id) =>
     this.getDb().where(app.firestore.FieldPath.documentId(), "==", id).get();
+
+  
 }
 
 export default Firebase;
