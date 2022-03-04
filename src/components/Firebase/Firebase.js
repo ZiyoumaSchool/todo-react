@@ -19,22 +19,13 @@ class Firebase {
     this.db = app.firestore();
   }
 
-  //Inscription
-  signUp = (email, password) =>
-    this.auth.createUserWithEmailAndPassword(email, password);
-
-  //Connexion
-  signIn = (email, password) =>
-    this.auth.signInWithEmailAndPassword(email, password);
-
-  //Deconnexion
-  signOut = () => this.auth.signOut();
-
-  //Recuperation
-  ressetPassword = (email) => this.auth.sendPasswordResetEmail(email);
-
   //Database
   user = (uid) => this.db.doc(`users/${uid}`);
+
+  getDb = () => this.db.collection("users");
+
+  findDocument = (id) =>
+    this.getDb().where(app.firestore.FieldPath.documentId(), "==", id).get();
 }
 
 export default Firebase;
