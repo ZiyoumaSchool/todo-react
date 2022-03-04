@@ -16,6 +16,8 @@ class TodoList extends Component {
     todos: [],
     isAuth: false,
     user: {},
+    clientId:
+      "859857546300-p9dnpvho05nsqacerea9a8npffg611o5.apps.googleusercontent.com",
   };
 
   componentDidMount() {
@@ -120,23 +122,46 @@ class TodoList extends Component {
       name: response.profileObj.name,
     };
 
+    // this.context
+    //   .findDocument(user.id)
+    //   .then((querySnapshot) => {
+    //     if (querySnapshot.exists)
+    //       querySnapshot.forEach((element) => {
+    //         var data = element.data();
+    //         this.setState({ user, isAuth: true, todos: data.todos });
+    //       });
+    //     else {
+    //       this.context.user(user.id).set({ ...user, todos: this.state.todos });
+    //       this.setState({ user, isAuth: true, todos: [] });
+    //     }
+    //     this.setLocalStorage(TODOUSERS, user);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
+
     this.context
-      .findDocument(user.id)
+      .getDb()
+      .doc(response.profileObj.googleId)
+      .get()
       .then((querySnapshot) => {
-        if (querySnapshot.exists)
-          querySnapshot.forEach((element) => {
-            var data = element.data();
-            this.setState({ user, isAuth: true, todos: data.todos });
+        if (querySnapshot.exists) {
+          this.context.findDocument(user.id).then((querySnapshot) => {
+            querySnapshot.forEach((element) => {
+              var data = element.data();
+              this.setState({ user, isAuth: true, todos: data.todos });
+            });
           });
-        else {
+        } else {
           this.context.user(user.id).set({ ...user, todos: this.state.todos });
           this.setState({ user, isAuth: true, todos: [] });
         }
         this.setLocalStorage(TODOUSERS, user);
-      })
-      .catch((err) => {
-        console.log(err);
       });
+  };
+
+  responseGoogleEchec = (response) => {
+    console.log(response);
   };
 
   logOut = () => {
@@ -184,10 +209,10 @@ class TodoList extends Component {
                 </Dropdown>
               ) : (
                 <GoogleLogin
-                  clientId="859857546300-p9dnpvho05nsqacerea9a8npffg611o5.apps.googleusercontent.com"
+                  clientId={this.state.clientId}
                   buttonText="Connexion"
                   onSuccess={this.responseGoogle}
-                  onFailure={this.responseGoogle}
+                  onFailure={this.responseGoogleEchec}
                   cookiePolicy={"single_host_origin"}
                 />
               )}
