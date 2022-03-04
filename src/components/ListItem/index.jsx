@@ -6,7 +6,10 @@ import ModalTodo from "../ModalTodo";
 const ListItem = ({ deleteTodo, editCheck, item, ...props }) => {
   const [showE, setShowE] = useState(false);
   const [showD, setShowD] = useState(false);
-  const [modalContent, setModalContent] = useState("");
+  const [modalContent, setModalContent] = useState({
+    title: "Modification",
+    btnLabel: "Modifier",
+  });
   const [inputValue, setInputValue] = useState(item.task);
 
   const handleClose = () => {
@@ -102,7 +105,7 @@ const ListItem = ({ deleteTodo, editCheck, item, ...props }) => {
         show={showE}
         closeModal={handleClose}
         modalContent={modalContent}
-        typeofModal="input"
+        typeofModal="edit"
         inputValue={inputValue}
         onChange={onChange}
         actionBtn={() => editTodo(item.id)}
