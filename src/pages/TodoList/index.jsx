@@ -5,7 +5,7 @@ import { FirebaseContext } from "../../components/Firebase";
 import { GoogleLogin } from "react-google-login";
 import { Dropdown } from "react-bootstrap";
 import "./todoList.css";
-import "firebase/compat/firestore";
+
 const TODOLIST = "TODO_LIST";
 const TODOUSERS = "TODO_USERS";
 
@@ -20,7 +20,7 @@ class TodoList extends Component {
   componentDidMount() {
     const datas = this.getLocalStorage(TODOLIST);
     const user = this.getLocalStorage(TODOUSERS);
-    if (datas != null) this.setState({ todos: datas });
+
     if (user != null) {
       this.context
         .findDocument(user.id)
@@ -34,7 +34,7 @@ class TodoList extends Component {
           console.log(err);
         });
       this.setState({ user, isAuth: true });
-    }
+    } else if (datas != null) this.setState({ todos: datas });
   }
 
   addTodo = (val) => {
