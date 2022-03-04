@@ -14,21 +14,33 @@ const ModalTodo = ({
   onChange,
   ...props
 }) => {
+  const renderSwitch = (param) => {
+    switch (param) {
+      case "simple":
+        return <Fragment>{modalContent.content}</Fragment>;
+
+      default:
+        return (
+          <Input
+            value={inputValue}
+            placeholder={props?.option?.Inputplaceholder}
+            onChange={onChange}
+          />
+        );
+    }
+  };
+
   return (
     <>
-      <Modal show={show} onHide={closeModal}>
+      <Modal
+        show={show}
+        onHide={closeModal}
+        centered={true ? props?.option?.postion : false}
+      >
         <Modal.Header closeButton>
           <Modal.Title>{modalContent.title}</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
-          {typeofModal === "simple" ? (
-            <Fragment>{modalContent.content}</Fragment>
-          ) : (
-            <Fragment>
-              <Input value={inputValue} onChange={onChange} />
-            </Fragment>
-          )}
-        </Modal.Body>
+        <Modal.Body>{renderSwitch(typeofModal)}</Modal.Body>
         <Modal.Footer>
           <Button onClick={closeModal} size="medium" label="Annuler" />
           <Button
@@ -51,7 +63,7 @@ ModalTodo.propTypes = {
   /**
    *  Le type de modal on peut avoir le modal pour la modification d'une todo, de la suppression d'un todo ou autre encore ...
    */
-  typeofModal: PropTypes.oneOf(["simple", "edit"]),
+  typeofModal: PropTypes.oneOf(["simple", "edit", "signin"]),
   /**
    * La description des champs du label
    */

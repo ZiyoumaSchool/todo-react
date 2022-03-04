@@ -1,9 +1,18 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Input = ({ value, type, placeholder, required, className, ...props }) => {
+const Input = ({
+  value,
+  type,
+  placeholder,
+  required,
+  className,
+  id,
+  ...props
+}) => {
   return (
     <input
+      id={id ? id : ""}
       value={value}
       type={type ? type : "text"}
       placeholder={placeholder ? placeholder : ""}
@@ -18,6 +27,10 @@ const Input = ({ value, type, placeholder, required, className, ...props }) => {
 
 Input.propTypes = {
   /**
+   *  Id de l'input
+   */
+  id: PropTypes.string,
+  /**
    *  La valeur de l'input
    */
   value: PropTypes.string,
@@ -25,7 +38,7 @@ Input.propTypes = {
   /**
    *  Le type de l'input il est  optionnel (par defaut c'est un type text)
    */
-  type: PropTypes.oneOf(["email", "number", "text"]),
+  type: PropTypes.oneOf(["email", "number", "text", "password"]),
   /**
    * Le placeholder de l'input il est  optionnel
    */
