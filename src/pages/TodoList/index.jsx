@@ -111,33 +111,32 @@ class TodoList extends Component {
   removeItem = (key) => localStorage.removeItem(key);
 
   responseGoogle = (response) => {
-    // const user = {
-    //   id: response.profileObj.googleId,
-    //   email: response.profileObj.email,
-    //   familyName: response.profileObj.familyName,
-    //   givenName: response.profileObj.givenName,
-    //   imageUrl: response.profileObj.imageUrl,
-    //   name: response.profileObj.name,
-    // };
+    const user = {
+      id: response.profileObj.googleId,
+      email: response.profileObj.email,
+      familyName: response.profileObj.familyName,
+      givenName: response.profileObj.givenName,
+      imageUrl: response.profileObj.imageUrl,
+      name: response.profileObj.name,
+    };
 
-    // this.context
-    //   .findDocument(user.id)
-    //   .then((querySnapshot) => {
-    //     if (querySnapshot.exists)
-    //       querySnapshot.forEach((element) => {
-    //         var data = element.data();
-    //         this.setState({ user, isAuth: true, todos: data.todos });
-    //       });
-    //     else {
-    //       this.context.user(user.id).set({ ...user, todos: this.state.todos });
-    //       this.setState({ user, isAuth: true, todos: [] });
-    //     }
-    //     this.setLocalStorage(TODOUSERS, user);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
-    console.log(response)
+    this.context
+      .findDocument(user.id)
+      .then((querySnapshot) => {
+        if (querySnapshot.exists)
+          querySnapshot.forEach((element) => {
+            var data = element.data();
+            this.setState({ user, isAuth: true, todos: data.todos });
+          });
+        else {
+          this.context.user(user.id).set({ ...user, todos: this.state.todos });
+          this.setState({ user, isAuth: true, todos: [] });
+        }
+        this.setLocalStorage(TODOUSERS, user);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   logOut = () => {
