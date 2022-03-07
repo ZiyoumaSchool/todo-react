@@ -202,6 +202,11 @@ class TodoList extends Component {
                       <GoogleLogout
                         clientId="859857546300-p9dnpvho05nsqacerea9a8npffg611o5.apps.googleusercontent.com"
                         buttonText="Déconnexion"
+                        render={(renderProps) => (
+                          <React.Fragment onClick={renderProps.onClick}>
+                            Déconnexion
+                          </React.Fragment>
+                        )}
                         onLogoutSuccess={this.logOut}
                       ></GoogleLogout>
                     </Dropdown.Item>

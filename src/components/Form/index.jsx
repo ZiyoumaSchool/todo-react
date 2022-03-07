@@ -5,11 +5,11 @@ import PropTypes from "prop-types";
 
 const Form = ({ inputEdit, ...props }) => {
   const [inputValue, setInputValue] = useState("");
+  const [inputDate, setInputDate] = useState("");
+  const [inputTime, setInputTime] = useState("");
   useEffect(() => {
     setInputValue(inputEdit);
   }, [inputEdit]);
-
-  const onChange = (event) => setInputValue(event.target.value);
 
   const onKeyDown = (event) => {
     if (event.key === "Enter") {
@@ -33,10 +33,25 @@ const Form = ({ inputEdit, ...props }) => {
           </div>
         </div>
         <Input
-          placeholder="Ajouter un todo"
-          onChange={onChange}
+          placeholder="Ajouter un todo - Appuyer sur Entrée"
+          onChange={(e) => setInputValue(e.target.value)}
           onKeyDown={onKeyDown}
           value={inputValue}
+          name="task"
+        />
+        <Input
+          onChange={(e) => setInputDate(e.target.value)}
+          onKeyDown={onKeyDown}
+          value={inputDate}
+          type="date"
+          name="todoDate"
+        />
+        <Input
+          onChange={(e) => setInputTime(e.target.value)}
+          onKeyDown={onKeyDown}
+          value={inputTime}
+          type="time"
+          name="todoTime"
         />
         <Button onClick={add} size="medium" primary={true} label="Ajouter" />
       </div>
