@@ -3,7 +3,6 @@ import Input from "../Input";
 import Button from "../Button";
 import PropTypes from "prop-types";
 import moment from "moment";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Form = ({ datas, formState, ...props }) => {
   const [inputTask, setInputTask] = useState("");

@@ -2,6 +2,16 @@
 
 All significant changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for engagement guidelines.
 
+### [1.1.0](https://github.com/ZiyoumaSchool/todo-react/commit/a0a023082751ab935cdbcae64e71e9b75a9063d3) (2022-03-08)
+
+### Features
+
+- Add date and hour to todos
+
+### Bug Fixes
+
+- Connection with firebase
+
 ### [1.0.0](https://github.com/ZiyoumaSchool/todo-react/commit/a0a023082751ab935cdbcae64e71e9b75a9063d3) (2022-02-15)
 
 ### Features

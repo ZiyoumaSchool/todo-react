@@ -3,6 +3,7 @@ import Form from "../../components/Form";
 import ListItem from "../../components/ListItem";
 import { FirebaseContext } from "../../components/Firebase";
 import { GoogleLogin } from "react-google-login";
+import { GoogleLogout } from "react-google-login";
 import { Dropdown } from "react-bootstrap";
 import "./todoList.css";
 
@@ -148,6 +149,8 @@ class TodoList extends Component {
   logOut = () => {
     this.setState({ user: {}, isAuth: false, todos: [] });
     this.removeItem(TODOUSERS);
+    const datas = this.getLocalStorage(TODOLIST);
+    if (datas != null) this.setState({ todos: datas });
   };
 
   render() {
@@ -165,7 +168,7 @@ class TodoList extends Component {
                       className="img-xs image imgB"
                       width={50}
                       height={50}
-                      alt="User profile"
+                      alt="User  profile"
                     />
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
@@ -177,9 +180,17 @@ class TodoList extends Component {
                       ) : null}
                     </Dropdown.Item>
                     <Dropdown.Divider />
-                    <Dropdown.Item onClick={this.logOut}>
-                      <i className="fa-solid fa-arrow-right-from-bracket"></i>
-                      Déconnexion
+                    <Dropdown.Item>
+                      <GoogleLogout
+                        clientId="859857546300-p9dnpvho05nsqacerea9a8npffg611o5.apps.googleusercontent.com"
+                        buttonText="Déconnexion"
+                        render={(renderProps) => (
+                          <React.Fragment onClick={renderProps.onClick}>
+                            Déconnexion
+                          </React.Fragment>
+                        )}
+                        onLogoutSuccess={this.logOut}
+                      ></GoogleLogout>
                     </Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>

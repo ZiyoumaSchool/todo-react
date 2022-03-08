@@ -8,6 +8,7 @@ const Input = ({
   required,
   className,
   id,
+  name,
   style,
   ...props
 }) => {
@@ -16,6 +17,7 @@ const Input = ({
       id={id ? id : ""}
       value={value}
       type={type ? type : "text"}
+      name={name ? name : ""}
       placeholder={placeholder ? placeholder : ""}
       className={className ? className : "form-control"}
       style={style ?  style  : {}}
@@ -46,6 +48,7 @@ Input.propTypes = {
     "text",
     "password",
     "date",
+    "datetime-local",
     "time",
   ]),
   /**
