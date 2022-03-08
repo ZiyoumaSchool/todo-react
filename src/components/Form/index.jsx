@@ -23,7 +23,7 @@ const Form = ({ datas, formState, ...props }) => {
       setInputTime(datas.hour);
       setInputDate(new Date(datas.date).toLocaleDateString("en-CA"));
     }
-  }, []);
+  }, [datas, formState]);
 
   const onKeyDown = (event) => {
     if (event.key === "Enter") {
@@ -48,7 +48,6 @@ const Form = ({ datas, formState, ...props }) => {
     props.addTodo(todo);
     setInputTask("");
   };
-
 
   return (
     <div className="card card-body my-3">
