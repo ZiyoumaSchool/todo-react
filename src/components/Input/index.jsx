@@ -9,6 +9,7 @@ const Input = ({
   className,
   id,
   name,
+  style,
   ...props
 }) => {
   return (
@@ -19,6 +20,7 @@ const Input = ({
       name={name ? name : ""}
       placeholder={placeholder ? placeholder : ""}
       className={className ? className : "form-control"}
+      style={style ?  style  : {}}
       required={required ? required : false}
       onChange={props.onChange ? (event) => props.onChange(event) : null}
       onKeyDown={props.onKeyDown ? (event) => props.onKeyDown(event) : null}

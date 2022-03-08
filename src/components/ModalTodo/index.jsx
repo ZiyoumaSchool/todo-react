@@ -2,31 +2,33 @@ import { Modal } from "react-bootstrap";
 import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 import Button from "../Button";
-import Input from "../Input";
+import Form from "../Form";
 
 const ModalTodo = ({
   show,
   closeModal,
   modalContent,
   typeofModal,
-  data,
+  datas,
   inputValue,
   onChange,
   ...props
 }) => {
   const renderSwitch = (param) => {
     switch (param) {
-      case "simple":
-        return <Fragment>{modalContent.content}</Fragment>;
-
-      default:
+      case "edit":
         return (
-          <Input
-            value={inputValue}
-            placeholder={props?.option?.Inputplaceholder}
-            onChange={onChange}
+          <Form
+            datas={datas}
+            formState={false}
+            setEditTask={props.setEditTask}
+            setEditDate={props.setEditDate}
+            setEditTime={props.setEditTime}
           />
         );
+
+      default:
+        return <Fragment>{modalContent.content}</Fragment>;
     }
   };
 
