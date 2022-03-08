@@ -10,7 +10,10 @@ const ListItem = ({ deleteTodo, editCheck, item, ...props }) => {
     title: "Modification",
     btnLabel: "Modifier",
   });
-  const [inputValue, setInputValue] = useState(item.task);
+
+  const [editTask, setEditTask] = useState(item.task);
+  const [editDate, setEditDate] = useState(item.date);
+  const [editTime, setEditTime] = useState(item.hour);
 
   const handleClose = () => {
     if (showE) setShowE(false);
@@ -25,16 +28,16 @@ const ListItem = ({ deleteTodo, editCheck, item, ...props }) => {
     setShowD(true);
   };
 
-  const onChange = (event) => setInputValue(event.target.value);
+  // const onChange = (event) => setInputValue(event.target.value);
 
   const editTodo = () => {
-    item.task = inputValue;
-    item.hour = `${new Date().getHours()}:${new Date().getMinutes()}`;
-    item.date = new Date().toLocaleDateString();
+    item.task = editTask;
+    item.hour = editTime;
+    item.date = editDate;
 
-    handleClose();
     props.saveChange(item);
-    setModalContent("");
+    handleClose();
+    
   };
 
   return (
@@ -106,9 +109,12 @@ const ListItem = ({ deleteTodo, editCheck, item, ...props }) => {
         closeModal={handleClose}
         modalContent={modalContent}
         typeofModal="edit"
-        inputValue={inputValue}
-        onChange={onChange}
-        actionBtn={() => editTodo(item.id)}
+        setEditTask={setEditTask}
+        setEditDate={setEditDate}
+        setEditTime={setEditTime}
+        datas={item}
+        formState={false}
+        actionBtn={() => editTodo()}
       />
 
       <ModalTodo

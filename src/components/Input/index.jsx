@@ -8,6 +8,7 @@ const Input = ({
   required,
   className,
   id,
+  style,
   ...props
 }) => {
   return (
@@ -17,6 +18,7 @@ const Input = ({
       type={type ? type : "text"}
       placeholder={placeholder ? placeholder : ""}
       className={className ? className : "form-control"}
+      style={style ?  style  : {}}
       required={required ? required : false}
       onChange={props.onChange ? (event) => props.onChange(event) : null}
       onKeyDown={props.onKeyDown ? (event) => props.onKeyDown(event) : null}
@@ -38,7 +40,14 @@ Input.propTypes = {
   /**
    *  Le type de l'input il est  optionnel (par defaut c'est un type text)
    */
-  type: PropTypes.oneOf(["email", "number", "text", "password"]),
+  type: PropTypes.oneOf([
+    "email",
+    "number",
+    "text",
+    "password",
+    "date",
+    "time",
+  ]),
   /**
    * Le placeholder de l'input il est  optionnel
    */

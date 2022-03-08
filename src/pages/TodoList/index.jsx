@@ -39,16 +39,16 @@ class TodoList extends Component {
     } else if (datas != null) this.setState({ todos: datas });
   }
 
-  addTodo = (val) => {
-    if (val !== "") {
+  addTodo = (todo) => {
+    if (todo.task !== "") {
       const change = [
         ...this.state.todos,
         {
           id: this.state.todos.length + 1,
           isDone: false,
-          task: val,
-          hour: `${new Date().getHours()}:${new Date().getMinutes()}`,
-          date: new Date().toLocaleDateString(),
+          task: todo.task,
+          hour: todo.hour,
+          date: todo.date,
         },
       ];
       this.saveInDB(change);
@@ -120,24 +120,6 @@ class TodoList extends Component {
       imageUrl: response.profileObj.imageUrl,
       name: response.profileObj.name,
     };
-
-    // this.context
-    //   .findDocument(user.id)
-    //   .then((querySnapshot) => {
-    //     if (querySnapshot.exists)
-    //       querySnapshot.forEach((element) => {
-    //         var data = element.data();
-    //         this.setState({ user, isAuth: true, todos: data.todos });
-    //       });
-    //     else {
-    //       this.context.user(user.id).set({ ...user, todos: this.state.todos });
-    //       this.setState({ user, isAuth: true, todos: [] });
-    //     }
-    //     this.setLocalStorage(TODOUSERS, user);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
 
     this.context
       .getDb()
@@ -216,7 +198,11 @@ class TodoList extends Component {
         <div className="row">
           <div className="col-10 mx-auto col-md-10 mt-5">
             <h1 className="text-capitalize text-center">Ma TodoList</h1>
-            <Form addTodo={this.addTodo} inputEdit={this.state.inputValue} />
+            <Form
+              addTodo={this.addTodo}
+              inputEdit={this.state.inputValue}
+              formState={true}
+            />
             {this.listTodo()}
           </div>
         </div>
