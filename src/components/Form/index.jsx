@@ -4,7 +4,7 @@ import Button from "../Button";
 import PropTypes from "prop-types";
 import moment from "moment";
 
-const Form = ({ datas, formState, ...props }) => {
+const Form = ({ datas, withButton, actionBtn, ...props }) => {
   const [inputTask, setInputTask] = useState("");
   const [inputDate, setInputDate] = useState(
     new Date().toLocaleDateString("en-CA")
@@ -18,7 +18,7 @@ const Form = ({ datas, formState, ...props }) => {
   );
 
   useEffect(() => {
-    if (formState === false) {
+    if (withButton === false) {
       setInputTask(datas.task);
       setInputTime(datas.hour);
       setInputDate(new Date(datas.date).toLocaleDateString("en-CA"));
@@ -45,15 +45,14 @@ const Form = ({ datas, formState, ...props }) => {
       date: inputDate,
       hour: inputTime,
     };
-    props.addTodo(todo);
+    actionBtn(todo);
     setInputTask("");
   };
-
 
   return (
     <div className="card card-body my-3">
       <div className="input-group">
-        {formState === true ? (
+        {withButton ? (
           <div className="input-group-prepend">
             <div className="input-group-text bg-primary text-white h-100">
               <i className="fas fa-book"></i>
@@ -67,7 +66,7 @@ const Form = ({ datas, formState, ...props }) => {
           placeholder="Ajouter un todo - Appuyer sur Entrée"
           onChange={(e) => {
             setInputTask(e.target.value);
-            if (formState === false) props.setEditTask(e.target.value);
+            if (withButton === false) props.setEditTask(e.target.value);
           }}
           onKeyDown={onKeyDown}
           value={inputTask}
@@ -76,7 +75,7 @@ const Form = ({ datas, formState, ...props }) => {
         <Input
           onChange={(e) => {
             setInputDate(e.target.value);
-            if (formState === false) props.setEditDate(e.target.value);
+            if (withButton === false) props.setEditDate(e.target.value);
           }}
           onKeyDown={onKeyDown}
           value={inputDate}
@@ -85,13 +84,13 @@ const Form = ({ datas, formState, ...props }) => {
         <Input
           onChange={(e) => {
             setInputTime(e.target.value);
-            if (formState === false) props.setEditTime(e.target.value);
+            if (withButton === false) props.setEditTime(e.target.value);
           }}
           onKeyDown={onKeyDown}
           value={inputTime}
           type="time"
         />
-        {formState === true ? (
+        {withButton === true ? (
           <Button onClick={add} size="medium" primary={true} label="Ajouter" />
         ) : (
           ""
@@ -102,17 +101,42 @@ const Form = ({ datas, formState, ...props }) => {
 };
 Form.propTypes = {
   /**
+   * Present uniquement s'il s'agit d'un formulaire pour
+   */
+  datas: PropTypes.shape({
+    task: PropTypes.string,
+    date: PropTypes.string,
+    hour: PropTypes.string,
+  }),
+  /**
+   * Pour modifier le todo
+   */
+  setEditTask: PropTypes.func,
+  /**
+   * Pour modifier la date
+   */
+  setEditDate: PropTypes.func,
+  /**
+   *  Pour modifier l'heure
+   */
+  setEditTime: PropTypes.func,
+  /**
+   *  Si le formulaire a un boutton ou non
+   */
+  withButton: PropTypes.bool.isRequired,
+  /**
    *  L'action qui suit l'appui sur la touche Entrée
    */
   onKeyDown: PropTypes.func,
   /**
-   * Utile réelement lors de la modification
-   */
-  value: PropTypes.string,
-  /**
    * L'action qui suit l'appui sur le boutton
    */
-  onClick: PropTypes.func,
+  actionBtn: PropTypes.func,
 };
-
+Form.defaultProps = {
+  actionBtn: null,
+  setEditTask: null,
+  setEditDate: null,
+  setEditTime: null,
+};
 export default Form;

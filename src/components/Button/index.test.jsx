@@ -1,6 +1,10 @@
 import Button from "./";
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 
-test("I tried test", () => {
-  render(<Button label="Button" />);
+describe("Button", () => {
+  it("Test class", () => {
+    render(<Button label="Button" primary={true} />);
+    const primaryButton = screen.getByRole("button", { label: /Button/i });
+    expect(primaryButton).toHaveClass("button--primary");
+  });
 });

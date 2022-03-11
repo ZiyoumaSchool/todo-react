@@ -6,6 +6,7 @@ import ModalTodo from "../ModalTodo";
 const ListItem = ({ deleteTodo, editCheck, item, ...props }) => {
   const [showE, setShowE] = useState(false);
   const [showD, setShowD] = useState(false);
+
   const [modalContent, setModalContent] = useState({
     title: "Modification",
     btnLabel: "Modifier",
@@ -19,16 +20,16 @@ const ListItem = ({ deleteTodo, editCheck, item, ...props }) => {
     if (showE) setShowE(false);
     if (showD) setShowD(false);
   };
+
   const handleShowE = (content) => {
     setModalContent(content);
     setShowE(true);
   };
+
   const handleShowD = (content) => {
     setModalContent(content);
     setShowD(true);
   };
-
-  // const onChange = (event) => setInputValue(event.target.value);
 
   const editTodo = () => {
     item.task = editTask;
@@ -37,7 +38,6 @@ const ListItem = ({ deleteTodo, editCheck, item, ...props }) => {
 
     props.saveChange(item);
     handleClose();
-    
   };
 
   return (
@@ -113,7 +113,7 @@ const ListItem = ({ deleteTodo, editCheck, item, ...props }) => {
         setEditDate={setEditDate}
         setEditTime={setEditTime}
         datas={item}
-        formState={false}
+        withButton={false}
         actionBtn={() => editTodo()}
       />
 
@@ -146,6 +146,10 @@ ListItem.propTypes = {
    *La fonction pour l'edit
    */
   editTodo: PropTypes.func,
+  /**
+   *La fonction pour l'edit du checkbox
+   */
+  editCheck: PropTypes.func,
   /**
    * Supprimer un todo
    */

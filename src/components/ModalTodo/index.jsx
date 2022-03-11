@@ -20,7 +20,7 @@ const ModalTodo = ({
         return (
           <Form
             datas={datas}
-            formState={false}
+            withButton={false}
             setEditTask={props.setEditTask}
             setEditDate={props.setEditDate}
             setEditTime={props.setEditTime}

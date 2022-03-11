@@ -210,9 +210,9 @@ class TodoList extends Component {
           <div className="col-10 mx-auto col-md-10 mt-5">
             <h1 className="text-capitalize text-center">Ma TodoList</h1>
             <Form
-              addTodo={this.addTodo}
+              actionBtn={this.addTodo}
               inputEdit={this.state.inputValue}
-              formState={true}
+              withButton={true}
             />
             {this.listTodo()}
           </div>
