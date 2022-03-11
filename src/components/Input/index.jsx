@@ -20,7 +20,7 @@ const Input = ({
       name={name ? name : ""}
       placeholder={placeholder ? placeholder : ""}
       className={className ? className : "form-control"}
-      style={style ?  style  : {}}
+      style={style ? style : {}}
       required={required ? required : false}
       onChange={props.onChange ? (event) => props.onChange(event) : null}
       onKeyDown={props.onKeyDown ? (event) => props.onKeyDown(event) : null}
@@ -62,13 +62,15 @@ Input.propTypes = {
   /**
    * Une class Boostrap
    */
-
   className: PropTypes.string,
   /**
    * La fonction de trackage des valeurs
    */
-
-  onChange: PropTypes.func,
+  onChange: PropTypes.func.isRequired,
+  /**
+   * La fonction qui sera appelé lorsqu'on appuie sur Entrée
+   */
+  onKeyDown: PropTypes.func,
 };
 
 Input.defaultProps = {
@@ -77,6 +79,7 @@ Input.defaultProps = {
   placeholder: "",
   className: "form-control",
   onChange: null,
+  onKeyDown: null,
 };
 
 export default Input;

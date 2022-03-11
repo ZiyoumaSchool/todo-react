@@ -66,6 +66,7 @@
     "@storybook/node-logger": "^6.4.17",
     "@storybook/preset-create-react-app": "^4.0.0",
     "@storybook/react": "^6.4.17",
+    "@testing-library/dom": "^8.11.3",
     "webpack": "^5.68.0"
   }
 }
